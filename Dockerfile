@@ -1,9 +1,11 @@
 FROM openjdk:17-jdk-slim
 
+RUN apt-get update && apt-get install -y maven
+
 WORKDIR /app
 
 COPY . /app
 
-RUN javac src/main/java/com/damien/*.java -d out
+RUN mvn clean test
 
-CMD ["java", "-cp", "out", "com.damien.App"]
+CMD ["mvn", "test"]
